@@ -1,7 +1,7 @@
 "use client";
 
+import { auth } from "@/lib/firebase";
 import { useState, useEffect } from "react";
-import { auth } from "../../firebaseClient"; // path check koro
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
 
 export default function AddProductForm() {

@@ -1,17 +1,28 @@
-// app/dashboard/add-product/AddProductForm.jsx
 "use client";
 
-import { useState } from "react";
-
+import { useState, useEffect } from "react";
+import { auth } from "../../firebaseClient"; // path check koro
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
 
 export default function AddProductForm() {
   const [loading, setLoading] = useState(false);
   const [toast, setToast] = useState(null);
   const [error, setError] = useState(null);
+  const [user, setUser] = useState(null);
+
+  // Firebase auth listener (browser-only)
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((u) => setUser(u));
+    return () => unsubscribe();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!user) {
+      setError("You must be logged in to add a product");
+      return;
+    }
+
     setLoading(true);
     setToast(null);
     setError(null);
@@ -28,23 +39,25 @@ export default function AddProductForm() {
       date: formData.get("date"),
       category: formData.get("category") || "General",
       imageUrl: formData.get("imageUrl"),
+      userId: user.uid,
     };
 
-    const res = await fetch(`${API_BASE}/products`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-    });
+    try {
+      const res = await fetch(`${API_BASE}/products`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
 
-    setLoading(false);
+      if (!res.ok) throw new Error("Failed to add product");
 
-    if (!res.ok) {
-      setError("Failed to add product. Try again.");
-      return;
+      form.reset();
+      setToast("Product added successfully!");
+    } catch (err) {
+      setError(err.message || "Something went wrong");
+    } finally {
+      setLoading(false);
     }
-
-    form.reset();
-    setToast("Product added successfully!");
   };
 
   return (

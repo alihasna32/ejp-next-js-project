@@ -30,7 +30,7 @@ export default function AddProductForm() {
       imageUrl: formData.get("imageUrl"),
     };
 
-    const res = await fetch(`${API_BASE}/products`, {
+    const res = await fetch(`${API_BASE}products`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),

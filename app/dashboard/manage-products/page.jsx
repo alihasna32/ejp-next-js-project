@@ -24,7 +24,7 @@ export default function ManageProductsPage() {
   useEffect(() => {
     const load = async () => {
       try {
-        const res = await fetch(`${API_BASE}/products`);
+        const res = await fetch(`${API_BASE}products`);
         const data = await res.json();
         setProducts(data);
       } catch (e) {

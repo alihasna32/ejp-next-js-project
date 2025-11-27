@@ -15,7 +15,7 @@ export default function ManageProductsClient({ initialProducts }) {
     setLoadingId(id);
     setError(null);
 
-    const res = await fetch(`${API_BASE}/products/${id}`, {
+    const res = await fetch(`${API_BASE}products/${id}`, {
       method: "DELETE",
     });
 

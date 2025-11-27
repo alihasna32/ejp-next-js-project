@@ -20,7 +20,7 @@ export default function ProductDetailsClient({ id }) {
         // This should log "1", "2", etc. when you open /products/1, /products/2...
         console.log("ProductDetailsClient id prop:", id);
 
-        const res = await fetch(`${API_BASE}/products/${id}`);
+        const res = await fetch(`${API_BASE}products/${id}`);
         if (!res.ok) {
           throw new Error(`Failed to fetch product ${id}: ${res.status}`);
         }

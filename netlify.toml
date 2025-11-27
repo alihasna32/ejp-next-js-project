@@ -1,7 +1,7 @@
 # netlify.toml
-[build]
-  command = "npm run export"
-  publish = "out
+  [build]
+  command = "npm run build && npm run export"
+  publish = "out"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"

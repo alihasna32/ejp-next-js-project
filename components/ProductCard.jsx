@@ -30,7 +30,7 @@ export default function ProductCard({ product }) {
       </div>
       <div className="mt-3 flex justify-between gap-2">
         <Link
-          href={`/products/${product.id}`}
+          href={`products/${product.id}`}
           className="inline-flex flex-1 items-center justify-center rounded-full border border-slate-300 px-3 py-1.5 text-xs font-medium text-slate-700 transition hover:border-indigo-500 hover:text-indigo-600"
         >
           Details
